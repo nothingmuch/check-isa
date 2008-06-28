@@ -4,6 +4,8 @@ use strict;
 
 use ExtUtils::MakeMaker;
 
+require 5.008;
+
 WriteMakefile(
 	NAME         => 'Check::ISA',
 	VERSION_FROM => 'lib/Check/ISA.pm',
@@ -12,6 +14,7 @@ WriteMakefile(
 	PL_FILES     => { },
 	PREREQ_PM    => {
 		'Test::use::ok' => 0,
+		'Sub::Exporter' => 0,
 	},
 );
 

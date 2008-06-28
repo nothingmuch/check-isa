@@ -100,7 +100,7 @@ __END__
 
 =head1 NAME
 
-Check::ISA - DWIM checking of object class
+Check::ISA - DWIM, correct checking of an object's class
 
 =head1 SYNOPSIS
 
@@ -110,24 +110,33 @@ Check::ISA - DWIM checking of object class
 		$foo->some_method;
 	}
 
-	# instead of:
 
+	# instead of one of these methods:
 	UNIVERSAL::isa($foo, "SomeClass") # WRONG
+	ref $obj eq "SomeClass"; # VERY WRONG
 	$foo->isa("SomeClass") # May die
 	local $@; eval { $foo->isa("SomeClass") } # too long
 
 =head1 DESCRIPTION
 
-=head1 METHODS
+This module provides several functions to assist in testing whether a value is
+an object, and if so asking about its class.
+
+=head1 FUNCTIONS
 
 =over 4
 
 =item obj $thing, [ $class_or_role ]
 
-This function tests if C<$thing> is an object, and if C<$class_or_role> is
-supplied, tests whether C<< $thing->DOES($class_or_role) >>. L<UNIVERSAL/DOES>
-is just like C<isa>, except it's use is encouraged to query about an interface,
-as opposed to the object structure.
+This function tests if C<$thing> is an object.
+
+If C<$class_or_role> is provided, it also tests tests whether
+C<< $thing->DOES($class_or_role) >>.
+
+L<UNIVERSAL/DOES> is just like C<isa>, except it's use is encouraged to query
+about an interface, as opposed to the object structure. If C<DOES> is not
+overridden by th ebject, calling it is semantically identical to calling
+C<isa>.
 
 C<$thing> is considered an object if it's blessed, or if it's a C<GLOB> with a
 valid C<IO> slot (this is a L<FileHandle> object).
@@ -145,6 +154,21 @@ appropriate.
 
 =back
 
-=cut
+=head1 VERSION CONTROL
 
+This module is maintained using Darcs. You can get the latest version from
+L<http://nothingmuch.woobling.org/code>, and use C<darcs send> to commit
+changes.
+
+=head1 AUTHOR
+
+Yuval Kogman E<lt>nothingmuch@woobling.orgE<gt>
+
+=head1 COPYRIGHT
+
+	Copyright (c) 2008 Yuval Kogman. All rights reserved
+	This program is free software; you can redistribute
+	it and/or modify it under the same terms as Perl itself.
+
+=cut
 

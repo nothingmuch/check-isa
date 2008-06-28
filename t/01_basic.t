@@ -65,6 +65,11 @@ ok( obj(Foo->new), "Foo->new is an obj" );
 ok( obj(Foo->new, "Foo"), "of class Foo" );
 ok( inv(Foo->new, "Foo"), "inv works too" );
 
+is( obj_can(Foo->new, "new"), \&Foo::new, "obj_can on obj" );
+ok( !obj_can("Foo", "new"), "obj_can on non obj" );
+is( inv_can(Foo->new, "new"), \&Foo::new, "inv_can on obj" );
+is( inv_can("Foo", "new"), \&Foo::new, "inv_can on on obj" );
+
 ok( !obj("Foo"), "the class is not an object" );
 ok( !obj("Foo", "Foo"), "the class is not an object" );
 ok( inv("Foo"), "Foo is a class" );

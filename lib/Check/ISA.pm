@@ -81,12 +81,12 @@ sub inv ($;$) {
 	}
 }
 
-sub obj_can {
+sub obj_can ($;$) {
 	my ( $obj, $method ) = @_;
 	(blessed($obj) ? $obj : extract_io($obj) || return)->can($method);
 }
 
-sub inv_can {
+sub inv_can ($;$) {
 	my ( $inv, $method ) = @_;
 	obj_can($inv, $method) || inv($inv) && $inv->can($method);
 }

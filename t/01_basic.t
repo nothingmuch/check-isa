@@ -52,7 +52,13 @@ ok( !inv(sub {}), "a subroutine is not a class" );
 
 ok( !obj_can(undef, "foo"), "no foo method for undef" );
 ok( !obj_can("blah", "foo"), "no foo method for string" );
+ok( !obj_can("blah", "isa"), "no foo method for string" );
+ok( !obj_can("", "foo"), "no foo method for empty" );
 ok( !obj_can({}, "foo"), "no foo method for hash refs" );
+
+ok( !inv_can("blah", "foo"), "inv_can on random class" );
+ok( !inv_can("blah", "isa"), "no foo method for string" );
+ok( !inv_can("Foo", "foo"), "inv_can on Foo for nonexistent method" );
 
 no warnings 'once';
 ok( !obj(\*RANDOMGLOB), "a globref without an IO is not an object");
@@ -60,6 +66,10 @@ ok( !obj(\*RANDOMGLOB), "a globref without an IO is not an object");
 ok( obj(\*STDIN), "a globref with an IO is an object" );
 ok( obj("STDIN"), "a filehandle name is an object" );
 ok( obj_can(\*STDIN, "print"), "STDIN can print" );
+ok( obj_can("STDIN", "print"), "'STDIN' can print" );
+
+ok( inv_can(\*STDIN, "print"), "STDIN can print" );
+ok( inv_can("STDIN", "print"), "'STDIN' can print" );
 
 ok( obj(Foo->new), "Foo->new is an obj" );
 ok( obj(Foo->new, "Foo"), "of class Foo" );

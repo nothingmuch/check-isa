@@ -97,9 +97,13 @@ ok( obj(Gorch->new, "Foo"), "for instance too" );
 ok( !inv("Gorch", "Blah"), "false case" );
 ok( !obj(Gorch->new, "Blah"), "for instance too" );
 
-ok( inv("Zot", "FakedRole"), "faked DOES" );
-ok( obj(Zot->new, "FakedRole"), "for instance" );
-ok( inv("Zot", "Foo"), "DOES also answers isa" );
-ok( obj(Zot->new, "Foo"), "for instance" );
-ok( !inv("Zot", "OiVey"), "false case" );
-ok( !obj(Zot->new, "Blah"), "for instance too" );
+SKIP: {
+	plan skip "No DOES in this version of Perl", 6 unless UNIVERSAL->can("DOES");
+
+	ok( inv("Zot", "FakedRole"), "faked DOES" );
+	ok( obj(Zot->new, "FakedRole"), "for instance" );
+	ok( inv("Zot", "Foo"), "DOES also answers isa" );
+	ok( obj(Zot->new, "Foo"), "for instance" );
+	ok( !inv("Zot", "OiVey"), "false case" );
+	ok( !obj(Zot->new, "Blah"), "for instance too" );
+}

@@ -57,7 +57,9 @@ ok( inv("Gorch"), "Gorch is a class" );
 ok( inv("Gorch", "Gorch"), "class is itself" );
 ok( inv("Gorch", "Foo"), "class is Foo" );
 ok( inv("Gorch", "Moose::Object"), "class is Moose::Object" );
+
 SKIP: {
+	plan skip "No DOES in this version of Perl", 1 unless UNIVERSAL->can("DOES");
 	skip "Moose 0.52 required for roles", 1 unless eval { Moose->VERSION("0.52") };
 	ok( inv("Gorch", "Bar"), "class does Bar" );
 }

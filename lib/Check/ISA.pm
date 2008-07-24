@@ -68,14 +68,19 @@ sub inv ($;$) {
 	if ( blessed($inv) ) {
 		return obj($inv, $class_or_role);
 	} else {
-		if ( !ref($inv) and $inv ) {
-			$class_or_role = "UNIVERSAL" unless defined $class_or_role;
+		# we check just for scalar keys on the stash because:
+		# sub Foo::Bar::gorch {}
+		# Foo->can("isa") # true
+		# Bar->can("isa") # false
+		# this means that 'Foo' is a valid invocant, but Bar is not
 
-			local $@;
-			return eval {
+		if ( !ref($inv) and defined $inv and length($inv) and do { no strict 'refs'; scalar keys %{$inv . "::"} } ) {
+			if ( defined $class_or_role ) {
 				return CAN_HAS_DOES
 					? $inv->DOES($class_or_role)
 					: $inv->isa($class_or_role)
+			} else {
+				return 1; # $inv is always true, so not a problem, but that would be inconsistent
 			}
 		} else {
 			return;

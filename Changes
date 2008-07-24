@@ -1,0 +1,8 @@
+0.03
+	- Improved with input from Adam Kennedy
+
+0.02
+	- Test suite fixes for perls below 5.10
+
+0.01
+	- Initial release

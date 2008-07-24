@@ -18,7 +18,7 @@ use constant CAN_HAS_DOES => not not UNIVERSAL->can("DOES");
 
 use warnings::register;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 sub extract_io {
 	my $glob = shift;

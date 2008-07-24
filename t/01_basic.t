@@ -44,7 +44,7 @@ ok( !inv(1), "1 is not a class" );
 ok( !inv("0"), "'0' is not a class" );
 ok( !inv("00"), "'00' is not a class" );
 ok( !inv("1"), "'1' is not a class" );
-ok( !inv(""), "'1' is not a class" );
+ok( !inv(""), "'' is not a class" );
 ok( !inv("blah"), "'blah' is not a class" );
 ok( !inv([]), "an array ref is not a class" );
 ok( !inv({}), "a hash ref is not a class" );

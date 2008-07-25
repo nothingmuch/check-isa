@@ -1,3 +1,7 @@
+0.04
+	- introduce obj_does for semantic compatibility on 5.8 without performance
+	  loss. Duh.
+
 0.03
 	- Improved with input from Adam Kennedy
 

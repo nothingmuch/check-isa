@@ -7,7 +7,7 @@ use Test::More;
 
 BEGIN {
 	plan skip_all => "Moose is required for this test" unless eval { require Moose };
-	plan tests => 23;
+	plan tests => 25;
 }
 
 {
@@ -26,7 +26,7 @@ BEGIN {
 
 }
 
-use ok 'Check::ISA' => qw(obj inv);
+use ok 'Check::ISA' => qw(obj obj_does inv);
 
 ok( obj(Foo->new), "Foo->new is an obj" );
 ok( obj(Foo->new, "Foo"), "of class Foo" );
@@ -45,8 +45,10 @@ ok( obj(Gorch->new, "Foo"), "and class Foo" );
 ok( obj(Gorch->new, "Moose::Object"), "and Moose::Object" );
 
 SKIP: {
-	skip "Moose 0.52 required for roles", 1 unless eval { Moose->VERSION("0.52") };
-	ok( obj(Gorch->new, "Bar"), "does Bar" );
+	skip "Moose 0.52 required for roles", 3 unless eval { Moose->VERSION("0.52") };
+	ok( Gorch->new->does("Bar"), "does Bar" );
+	ok( Gorch->new->DOES("Bar"), "DOES Bar" );
+	ok( obj_does(Gorch->new, "Bar"), "does Bar in obj test" );
 }
 
 ok( inv(Gorch->new, "Gorch"), "inv works too" );

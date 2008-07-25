@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More 'no_plan';
 
-use ok 'Check::ISA' => qw(obj inv obj_can inv_can);
+use ok 'Check::ISA' => qw(obj obj_does inv obj_can inv_can);
 
 {
 	package Foo;
@@ -101,9 +101,9 @@ SKIP: {
 	plan skip "No DOES in this version of Perl", 6 unless UNIVERSAL->can("DOES");
 
 	ok( inv("Zot", "FakedRole"), "faked DOES" );
-	ok( obj(Zot->new, "FakedRole"), "for instance" );
+	ok( obj_does(Zot->new, "FakedRole"), "for instance" );
 	ok( inv("Zot", "Foo"), "DOES also answers isa" );
-	ok( obj(Zot->new, "Foo"), "for instance" );
+	ok( obj_does(Zot->new, "Foo"), "for instance" );
 	ok( !inv("Zot", "OiVey"), "false case" );
-	ok( !obj(Zot->new, "Blah"), "for instance too" );
+	ok( !obj_does(Zot->new, "Blah"), "for instance too" );
 }

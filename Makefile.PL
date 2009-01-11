@@ -15,6 +15,7 @@ WriteMakefile(
 	PREREQ_PM    => {
 		'Test::use::ok' => 0,
 		'Sub::Exporter' => 0,
+		'XSLoader'      => 0,
 	},
 );
 
